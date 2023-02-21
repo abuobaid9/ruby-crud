@@ -1,0 +1,20 @@
+<div id="<%= dom_id entry %>">
+  <header class='card-header'>
+    <p class="card-header-title">
+      <%= entry.meal_type %>
+    </p>
+  </header>
+  <div class='card-content'>
+    <div class='content'>
+      <p><span class="has-text-weight-bold"><%= entry.calories %></span>  calories</p>
+      <p><span class="has-text-weight-bold"><%= entry.proteins %></span>  grams of proteins</p>
+      <p><span class="has-text-weight-bold"><%= entry.carbohydrater %></span>  grams of carbohydrater</p>
+      <p><span class="has-text-weight-bold"><%= entry.fats %></span>  grams of fat</p>
+      <p class='italic'>Createed <%= time_ago_in_words(entry.created_at)%> ago</p>
+    </div>
+  </div>
+  <div class='card-footer'>
+    <%= link_to "Show", entry ,class:'card-footer-item' %>
+    <%= link_to "Edit", edit_entry_path(entry) ,class:'card-footer-item' %>
+  </div>
+</div>
