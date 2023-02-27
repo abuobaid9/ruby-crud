@@ -1,0 +1,49 @@
+<!-- app/views/entries/weights.html.erb -->
+<h3 class="is-size-1 has-text-weight-bold mb-4 has-text-centered">
+  Calories Rating 
+</h3>
+<div class="card">
+  <div class="card-content">
+    <h2 class="title is-4 has-text-centered">Very Good (Calories < 199) Calories</h2>
+        <% @very_good.each do |meal_type, entries,calories| %>
+          <ul class="is-size-4 has-text-weight-bold mb-4">
+            <% entries.each do |entry| %>
+              <%= link_to entry_path(entry) do %>
+                <li class="subtitle is-6 "><strong>Meal Name :</strong> <%= entry.meal_type %></li>
+                <li class="subtitle is-6">Calories : <%= entry.calories %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h2 class="title is-4 has-text-centered">Good Between (200-400) Calories</h2>
+        <% @good.each do |meal_type, entries,calories| %>
+          <ul class="is-size-4 has-text-weight-bold mb-4">
+            <% entries.each do |entry| %>
+              <%= link_to entry_path(entry) do %>
+                <li class="subtitle is-6"><strong>Meal Name :</strong> <%= entry.meal_type %></li>
+                <li class="subtitle is-6">Calories : <%= entry.calories %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content ">
+        <h2 class="title is-4 has-text-centered">Not Good (Calories > 401 ) Calories</h2>
+        <% @not_good.each do |meal_type, entries,calories| %>
+          <ul class="is-size-4  mb-4">
+            <% entries.each do |entry| %>
+              <%= link_to entry_path(entry) do %>
+                <li class="subtitle is-6"><strong>Meal Name :</strong> <%= entry.meal_type %></li>
+                <li class="subtitle is-6">Calories : <%= entry.calories %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>

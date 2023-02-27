@@ -6,7 +6,7 @@
 </div>
 <div class=" is-mobile level mt-4">
   <div class="level-item has-text-centered">
-    <%= button_to "Destroy", entry_path(@entry), method: :delete ,class:'button is-gray is-large' %>
+    <%= button_to "Destroy", entry_path(@entry), method: :delete , form: { data: { turbo_confirm: 'Are you sure?' } },class:'button is-gray is-large' %>
   </div>
 </div>
 </div>

@@ -1,14 +1,29 @@
 class EntriesController < ApplicationController
-  before_action :set_entry, only: %i[ show edit update destroy ]
+  before_action :set_entry, only: %i[show edit update destroy]
 
   # GET /entries or /entries.json
   def index
-    @entries = Entry.where("created_at >= ?", Date.today)
+    @entries = Entry.where('created_at >= ?', Date.today)
+  end
+
+  # app/controllers/entries_controller.rb
+  def weights
+    @very_good = Entry.where('calories < ?', 200).group_by(&:meal_type)
+    @good = Entry.where(calories: 200..400).group_by(&:meal_type)
+    @not_good = Entry.where('calories > ?', 400).group_by(&:meal_type)
+  end
+
+  def search
+    if params[:q].present?
+      @entries = Entry.where('meal_type LIKE ?', '%' + params[:q] + '%')
+      flash.now[:notice] = 'No entries were found.' if @entries.empty?
+    else
+      @entries = Entry.all
+    end
   end
 
   # GET /entries/1 or /entries/1.json
-  def show
-  end
+  def show; end
 
   # GET /entries/new
   def new
@@ -16,8 +31,7 @@ class EntriesController < ApplicationController
   end
 
   # GET /entries/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /entries or /entries.json
   def create
@@ -25,7 +39,7 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
+        format.html { redirect_to entry_url(@entry), notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +52,7 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to entry_url(@entry), notice: "Entry was successfully updated." }
+        format.html { redirect_to entry_url(@entry), notice: 'Entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @entry }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +66,21 @@ class EntriesController < ApplicationController
     @entry.destroy
 
     respond_to do |format|
-      format.html { redirect_to entries_url, notice: "Entry was successfully destroyed." }
+      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_entry
-      @entry = Entry.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def entry_params
-      params.require(:entry).permit(:meal_type, :calories, :proteins, :carbohydrater, :fats)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_entry
+    @entry = Entry.find(params[:id])
+    puts ' I happen  before action'
+  end
+
+  # Only allow a list of trusted parameters through.
+  def entry_params
+    params.require(:entry).permit(:meal_type, :calories, :proteins, :carbohydrater, :fats)
+  end
 end

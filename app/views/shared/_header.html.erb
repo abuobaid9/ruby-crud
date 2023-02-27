@@ -17,9 +17,23 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <%= link_to new_entry_path, class: "button is-success" do %>
-              <span>Create new entry</span>
-            <% end %>
+            <div class="navbar-item">
+              <form class="navbar-item  has-addons" action="/search" >
+                <div class="control">
+                  <input class="input is-primary" name="q" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="control">
+                  <button class="button is-primary" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+              <div class="navbar-item">
+                <%= link_to new_entry_path, class: "button is-success" do %>
+                  <span>Create new entry</span>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
